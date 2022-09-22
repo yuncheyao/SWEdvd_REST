@@ -1,3 +1,5 @@
+# αρχείο για τις λειτουργίες
+
 from tkinter import ACTIVE
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_security import login_required, current_user
@@ -10,7 +12,9 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/', methods=['GET', 'POST'])
-@login_required
+@login_required  # υποχρεωτικά πρέπει να είναι συνδεδεμένος ο χρήστης για να πραγματοποιήσει
+# τη λειτουργία αυτή
+# δημιουργία κάρτας αγοράς
 def home():
     if request.method == 'POST':
         card = request.form.get('card')
@@ -21,6 +25,8 @@ def home():
         flash('Card added!', category='success')
 
     return render_template("home.html", user=current_user)
+
+# διαγραφή κάρτας
 
 
 @views.route('/delete-card', methods=['POST'])
@@ -34,6 +40,8 @@ def delete_card():
             db.session.commit()
 
     return jsonify({})
+
+# αναζήτηση προϊόντος
 
 
 @views.route('/search', methods=["POST"])

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Η βασική σχεδίαση της υπηρεσίας στην οποία βασίζονται οι υπόλοιπες-->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
@@ -8,7 +9,7 @@
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
             crossorigin="anonymous"
-            />
+            /> <!-- Χρήση bootstrap-->
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -18,6 +19,7 @@
         <title>{% block title %}Home{% endblock %}</title>
     </head>
     <body>
+        <!-- Η μπάρα πλοήγησης -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button
                 class="navbar-toggler"
@@ -42,6 +44,7 @@
             </div>
         </nav>
 
+        <!-- Εάν δεν είναι σωστά τα στοιχεία : εμφάνιση αντίστοιχου μηνύματος -->
         {% with messages = get_flashed_messages(with_categories=true) %} {% if
         messages %} {% for category, message in messages %} {% if category ==
         'error' %}

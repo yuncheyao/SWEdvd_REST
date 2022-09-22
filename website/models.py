@@ -1,3 +1,5 @@
+# Αρχείο με στήλες της βάσης δεδομένων
+
 from . import db
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required, current_user
@@ -9,11 +11,16 @@ from flask_admin.contrib.sqla import ModelView
 from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for, abort
 import enum
 
+# Κλάση για τις δυνατές καταστάσεις
+
 
 class StatusOptions(enum.Enum):
     STILL_ACTIVE = 'Still Active'
     CANCELLED = 'Cancelled'
     COMPLETED = 'Completed'
+
+
+# κάρτα αγοράς
 
 
 class Card(db.Model):
@@ -23,6 +30,8 @@ class Card(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     movie_id = db.Column(db.String(10), db.ForeignKey('dvd.id'))
     status = db.Column(db.Enum())
+
+# Οι δύο διαφορετικοί ρόλοι που μπορούν να υπάρχουν στο σύστημα
 
 
 class Role(db.Model, RoleMixin):
@@ -40,6 +49,8 @@ roles_users = db.Table(
     db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))
 )
 
+# Κλάση χρήστη
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +64,8 @@ class User(db.Model, UserMixin):
 
 dvds = {}
 
+# κλάση προϊόντος
+
 
 class dvdModel(db.Model):
     id = db.Column(db.String(10), primary_key=True)
@@ -62,6 +75,8 @@ class dvdModel(db.Model):
         result = dvdModel.query.get()
         return dvds[id]
 
+# Κλάση παραγγελίας
+
 
 class Order(db.Model):
     id = db.Column(db.String(12), primary_key=True)
@@ -70,6 +85,8 @@ class Order(db.Model):
     movie_id = db.Column(db.String(10), db.ForeignKey('dvdModel.id'))
    # status = db.Enum(db.String(10))
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
+
+# εμφάνιση της υπηρεσίας μέσω ενός χρήστη ο οποίος είναι υπάλληλος αντί πελάτης
 
 
 class myAdminView(ModelView):
@@ -99,6 +116,7 @@ class myAdminView(ModelView):
                 return redirect(url_for('security.login', next=request.url))
 
 
+# Εμφάνιση υπηρεσίας μέσω απλού χρήστη
 class UserView(ModelView):
     can_delete = False
     can_edit = False
@@ -108,5 +126,5 @@ class SearchForm(FlaskForm):
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
-
-# api.add_resource(dvd, "/dvd/<string:id>") add elsewhere
+# για σελίδα κάθε προϊόντος
+# api.add_resource(dvd, "/dvd/<string:id>")

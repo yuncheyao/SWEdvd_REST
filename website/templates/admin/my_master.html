@@ -1,7 +1,9 @@
 {% extends 'admin/base.html' %}
-
+<!-- χρήση template από άλλες σελίδες  -->
 {% block access_control %}
 {% if current_user.is_authenticated %}
+
+<!-- η μπάρα πλοήγησης -->
 <div class="navbar-text btn-group pull-right">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
         aria-expanded="false">
