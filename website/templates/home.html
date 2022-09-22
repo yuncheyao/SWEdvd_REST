@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 align="center">Cards</h1>
+<ul class="list-group list-group-flush" id="cards">
+    {% for card in user.cards %}
+    <li class="list-group-item">
+        {{ card.data }}
+        <button type="button" class="close" onclick="delete_card( {{ card.id }}
+            )">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+
+<!--- 
+    for orders in the future?????????? 
+    check data in https://github.com/HarshShah1997/Shopping-Cart/blob/master/templates/productDescription.html
+    <div id="display">
+    <div id="productName">
+        <h1>{{data[1]}}</h1>
+    </div>
+    <div>
+        <img src={{url_for('static', filename='uploads/'+data[4]) }}
+            id="productImage"/>
+    </div>
+
+    <div id="productDescription">
+        <h2>Details</h2>
+        <table id="descriptionTable">
+            <tr>
+                <td>Name</td>
+                <td>{{data[1]}}</td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>${{data[2]}}</td>
+            </tr>
+            <tr>
+                <td>Stock</td>
+                <td>{{data[5]}}</td>
+            </tr>
+        </table>
+        <h2>Description</h2>
+        <p>{{data[3]}}</p>
+    </div>
+    <div id="addToCart">
+        <a href="/addToCart?productId={{request.args.get('productId')}}">Add to
+            Cart</a>
+    </div>
+</div>
+---->
+<form method="POST">
+    <textarea name="card" id="card" class="form-control"></textarea>
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">New Card/Order</button>
+    </div>
+</form>
+{% endblock %}
